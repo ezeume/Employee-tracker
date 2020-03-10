@@ -18,7 +18,7 @@ CREATE TABLE employee (
 CREATE TABLE role(
     id INT NOT NULL AUTO_INCREMENT,
     title VARCHAR(30) NOT NULL,
-    salary DECIMAL NOT NULL,
+    salary DECIMAL(10, 4) NOT NULL,
     departmentId INT NOT NULL,
     PRIMARY KEY (id)
 );
@@ -31,13 +31,13 @@ CREATE TABLE department(
 );
 
 INSERT INTO employee (firstName, lastName, roleId, managerId)
-VALUES ("Nelson", "Ezeume", 01, 10);
+VALUES ("Nelson", "Ezeume", 01, 10), ("Bill", "Scott", 02, 20 ), ("Tom", "Hanks" 03, 30);
 
 INSERT INTO role (title, salary, departmentId)
-VALUES ("Manager",110000, 111);
+VALUES ("Manager",95000, 111), ("Marketer", 70000, 222), ("Software Engineer", 110000, 333);
 
 INSERT INTO department (name)
-VALUES ("Administration");
+VALUES ("Administration"), ("Marketing"), ("IT");
 
 -- ### Alternative way to insert more than one row
 -- INSERT INTO products (flavor, price, quantity)
