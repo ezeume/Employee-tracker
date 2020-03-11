@@ -30,7 +30,7 @@ function initialPrompt() {
       type: "list",
       message: "WELCOME! What would you like to do?",
       name: "employeeAction",
-      choices: ["View all Employees", "View all Employees by Department", "View all Employees by Manager", "Add Employee", "Update Employee Role", "Update Employee Manager", "Remove Employee", "View all Role", "Add Role", "Remove Role", "View all Department", "Add Department", "Remove Department", "Exit"]
+      choices: ["View all Employees", "View all Employees by Department", "View all Employees by Manager", "View all Department", "View all Role", "Add Department", "Add Employee", "Add Role", "Update Employee Role", "Update Employee Manager", "Remove Employee", "Remove Role", "Remove Department", "Exit"]
     }
   ]).then(function (actionAnswers) {
     console.log(actionAnswers);
@@ -44,10 +44,10 @@ function initialPrompt() {
       viewAllEmployeesByManager();
     }
     else if (actionAnswers == "View all Department") {
-      viewAllEmployeesByDepartment();
+      viewAllDepartment();
     }
     else if (actionAnswers == "View all Role") {
-      viewAllRole();
+      viewAllRoles();
     }
     else if (actionAnswers == "Add Department") {
       addDepartment();
@@ -93,9 +93,16 @@ function viewAllEmployeesByManager() {
 function viewAllEmployeesByDepartment() {
   console.log("to-do finish writing this function")
 }
-function viewAllRole() {
+
+//view all roles
+function viewAllRoles() {
+  connect.query("SELECT * FROM roles", function(err, res){
+    if (err) throw err;
+    initialPrompt()
+  });
   console.log("to-do finish writing this function")
 }
+
 function addDepartment() {
   console.log("to-do finish writing this function")
 }

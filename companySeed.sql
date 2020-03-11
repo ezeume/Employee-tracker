@@ -5,7 +5,7 @@ CREATE DATABASE company_db;
 USE company_db;
 
 -- employee table
-CREATE TABLE employee (
+CREATE TABLE employees(
   id INT NOT NULL AUTO_INCREMENT,
   firstName VARCHAR(30) NOT NULL,
   lastName VARCHAR(30) NOT NULL,
@@ -15,29 +15,29 @@ CREATE TABLE employee (
 );
 
 -- role table
-CREATE TABLE role(
+CREATE TABLE roles(
     id INT NOT NULL AUTO_INCREMENT,
     title VARCHAR(30) NOT NULL,
-    salary DECIMAL(10, 4) NOT NULL,
+    salary DECIMAL(10, 2) NOT NULL,
     departmentId INT NOT NULL,
     PRIMARY KEY (id)
 );
 
 -- department table
-CREATE TABLE department(
+CREATE TABLE departments(
     id INT NOT NULL AUTO_INCREMENT,
     name VARCHAR(30) NOT NULL,
     PRIMARY KEY (id)
 );
 
 INSERT INTO employee (firstName, lastName, roleId, managerId)
-VALUES ("Nelson", "Ezeume", 01, 10), ("Bill", "Scott", 02, 20 ), ("Tom", "Hanks" 03, 30);
+VALUES ("Nelson", "Ezeume", 10, 1), ("Bill", "Scott", 10, 11 ), ("Tom", "Hanks", 10, 11), ("Janet", "Green", 20, 2), ("Ricky", "Botin", 20, 22), ("Nancy", "Trash", 20, 22), ("Gary", "Owen", 30, 3), ("Murphy", "Lohan", 30, 33), ("Chuck", "Norris", 30, 33);
 
 INSERT INTO role (title, salary, departmentId)
-VALUES ("Manager",95000, 111), ("Marketer", 70000, 222), ("Software Engineer", 110000, 333);
+VALUES ("Marketer",95000, 101), ("HR", 70000, 202), ("Software Engineer", 110000, 303);
 
 INSERT INTO department (name)
-VALUES ("Administration"), ("Marketing"), ("IT");
+VALUES ("Marketing"), ("Human Resources"), ("IT");
 
 -- ### Alternative way to insert more than one row
 -- INSERT INTO products (flavor, price, quantity)
