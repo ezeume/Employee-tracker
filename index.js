@@ -33,47 +33,49 @@ function initialPrompt() {
       choices: ["View all Employees", "View all Employees by Department", "View all Employees by Manager", "View all Department", "View all Role", "Add Department", "Add Employee", "Add Role", "Update Employee Role", "Update Employee Manager", "Remove Employee", "Remove Role", "Remove Department", "Exit"]
     }
   ]).then(function (actionAnswers) {
-    console.log(actionAnswers);
+    // console.log(actionAnswers);
+    console.log(actionAnswers.employeeAction)
     if (actionAnswers.employeeAction == "View all Employees") {
       viewAllEmployees();
     }
     else if (actionAnswers.employeeAction == "View all Employees by Department") {
       viewAllEmployeesByDepartment();
     }
-    else if (actionAnswers == "View all Employees by Manager") {
+    else if (actionAnswers.employeeAction == "View all Employees by Manager") {
       viewAllEmployeesByManager();
     }
     else if (actionAnswers.employeeAction == "View all Department") {
       viewAllDepartment();
     }
-    else if (actionAnswers == "View all Role") {
+    else if (actionAnswers.employeeAction == "View all Role") {
       viewAllRole();
     }
-    else if (actionAnswers == "Add Department") {
+    else if (actionAnswers.employeeAction == "Add Department") {
+      console.log("inside if statement ln 53")
       addDepartment();
     }
-    else if (actionAnswers == "Add Employee") {
+    else if (actionAnswers.employeeAction == "Add Employee") {
       addEmployee();
     }
-    else if (actionAnswers == "Add Role") {
+    else if (actionAnswers.employeeAction == "Add Role") {
       addRole();
     }
-    else if (actionAnswers == "Update Employee Role") {
+    else if (actionAnswers.employeeAction == "Update Employee Role") {
       updateEmployeeRole();
     }
-    else if (actionAnswers == "Update Employee Manager") {
+    else if (actionAnswers.employeeAction == "Update Employee Manager") {
       updateEmployeeManager();
     }
-    else if (actionAnswers == "Remove Employee") {
+    else if (actionAnswers.employeeAction == "Remove Employee") {
       removeEmployee();
     }
-    else if (actionAnswers == "Remove Role") {
+    else if (actionAnswers.employeeAction == "Remove Role") {
       removeRole();
     }
-    else if (actionAnswers == "Remove Department") {
+    else if (actionAnswers.employeeAction == "Remove Department") {
       removeDepartment();
     }
-    else if (actionAnswers == "Exit") {
+    else if (actionAnswers.employeeAction == "Exit") {
       exit();
     }
   })
@@ -134,9 +136,8 @@ function viewAllDepartment() {
 
 //view all roles
 function viewAllRole() {
-  connection.query("SELECT title FROM roles;", function(err, res){
+  connection.query("SELECT * FROM roles;", function(err, res){
     if (err) throw err;
-    // console.log(roles)
     console.table(res)
     initialPrompt();
   });
@@ -149,13 +150,14 @@ function addDepartment() {
       type: "input",
       message: "What department do you want to add?",
       name: "newDepartment"
+      
     }
   ]).then(function(newDepartmentName){
-    // console.log(newDepartmentName.newDepartment)
-    connection.query("INSERT INTO department SET ?", function(err, res){
+    console.log(newDepartmentName.newDepartment)
+    connection.query("INSERT INTO departments (name) VALUES ('Finance')", function(err, res){
       if (err) throw err;
       console.table(res)
-      inittialPrompt()
+      initialPrompt()
     })
   });
   
