@@ -97,7 +97,7 @@ function viewAllEmployeesByDepartment() {
   inquirer.prompt([
     {
       type: "list",
-      message: "What department?",
+      message: "What department's employees?",
       name: "department",
       choices: [{
         name: "Human Resources",
@@ -120,9 +120,32 @@ function viewAllEmployeesByDepartment() {
 
 }
 
+// check to fix
 function viewAllEmployeesByManager() {
-  connection.query("SELECT")
-  console.log("to-do finish writing this function")
+  inquirer.prompt([
+    {
+      type: "list",
+      message: "What manager's employees?",
+      name: "manager",
+      choices: [{
+        name: "Nelson Ezeume",
+        value: 1
+      },{
+        name: "Janet Green",
+        value: 2
+      },{
+        name: "Gary Owen",
+        value: 3
+      }]
+      }
+  ]).then(function(managertChoices){
+    connection.query("SELECT employees.id, employees.firstName, employees.lastName, employees.roleId FROM employees WHERE managerId = ?;", [], function(err, res){
+      if (err) throw err;
+      console.table(res)
+    })
+
+  });
+
 }
 
 function viewAllDepartment() {
@@ -154,9 +177,9 @@ function addDepartment() {
     }
   ]).then(function(newDepartmentName){
     console.log(newDepartmentName.newDepartment)
-    connection.query("INSERT INTO departments (name) VALUES ('Finance')", function(err, res){
+    connection.query("INSERT INTO departments (name) VALUES (?)", [newDepartmentName.newDepartment], function(err, res){
       if (err) throw err;
-      console.table(res)
+      // console.table(res)
       initialPrompt()
     })
   });
@@ -164,9 +187,34 @@ function addDepartment() {
 }
 
 function addEmployee() {
-  console.log("to-do finish writing this function")
+  inquirer.prompt([
+    {
+      type: "input",
+      message: "Which employee do you want to add?",
+      name: "newEmployee"
+    }
+  ]).then(function(newEmployeeName){
+    console.log(newEmployeeName.newEmployee)
+    connection.query("INSERT INTO employees(name) VALUES (?)", [newEmployeeName.newEmployee], function(err, res){
+      if (err) throw err;
+      initialPrompt()
+    })
+  });
+  
 }
 function addRole() {
+  inquirer.prompt([
+    {
+      type: "input",
+      message: "What role do you want to add?",
+      name: "newRole"
+    }
+  ]).then(function(newRoleName){
+    connection.query("INSERT INTO roles(name) VALUES (?)", [newRoleName.newRole], function(err, res){
+      if (err) throw err;
+      initialPrompt()
+    })
+  });
   console.log("to-do finish writing this function")
 }
 function updateEmployeeRole() {
