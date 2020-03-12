@@ -47,7 +47,7 @@ function initialPrompt() {
       viewAllDepartment();
     }
     else if (actionAnswers == "View all Role") {
-      viewAllRoles();
+      viewAllRole();
     }
     else if (actionAnswers == "Add Department") {
       addDepartment();
@@ -133,16 +133,32 @@ function viewAllDepartment() {
 }
 
 //view all roles
-function viewAllRoles() {
-  connect.query("SELECT * FROM roles", function(err, res){
+function viewAllRole() {
+  connection.query("SELECT title FROM roles;", function(err, res){
     if (err) throw err;
+    // console.log(roles)
     console.table(res)
-    initialPrompt()
+    initialPrompt();
   });
 }
 
+//Add Department --check 
 function addDepartment() {
-  console.log("to-do finish writing this function")
+  inquirer.prompt([
+    {
+      type: "input",
+      message: "What department do you want to add?",
+      name: "newDepartment"
+    }
+  ]).then(function(newDepartmentName){
+    // console.log(newDepartmentName.newDepartment)
+    connection.query("INSERT INTO department SET ?", function(err, res){
+      if (err) throw err;
+      console.table(res)
+      inittialPrompt()
+    })
+  });
+  
 }
 
 function addEmployee() {
