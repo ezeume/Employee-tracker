@@ -43,7 +43,7 @@ function initialPrompt() {
     else if (actionAnswers == "View all Employees by Manager") {
       viewAllEmployeesByManager();
     }
-    else if (actionAnswers == "View all Department") {
+    else if (actionAnswers.employeeAction == "View all Department") {
       viewAllDepartment();
     }
     else if (actionAnswers == "View all Role") {
@@ -82,30 +82,69 @@ function initialPrompt() {
 
 
 function viewAllEmployees() {
-  console.log("to-do finish writing this function")
+  connection.query("SELECT * FROM employees;", function(err, res){
+    if (err) throw err;
+    // console.log(res)
+    console.table(res)
+    // console.log("to-do finish writing this function")
+    initialPrompt()
+  });
+  
 }
 function viewAllEmployeesByDepartment() {
-  console.log("to-do finish writing this function")
+  inquirer.prompt([
+    {
+      type: "list",
+      message: "What department?",
+      name: "department",
+      choices: [{
+        name: "Human Resources",
+        value: 10
+      },{
+        name: "IT",
+        value: 20
+      },{
+        name: "Marketing",
+        value: 30
+      }]
+    }
+  ]).then(function(departmentChoices){
+    console.log(departmentChoices.department);
+    connection.query("SELECT employees.id, employees.firstName, employees.lastName, employees.roleId FROM employees WHERE roleId = ?;",[departmentChoices.department], function(err, res){
+      if (err) throw err;
+      console.table(res)
+    })
+  });
+
 }
+
 function viewAllEmployeesByManager() {
+  connection.query("SELECT")
   console.log("to-do finish writing this function")
 }
-function viewAllEmployeesByDepartment() {
-  console.log("to-do finish writing this function")
+
+function viewAllDepartment() {
+  connection.query("SELECT name FROM departments;", function(err, res){
+    if (err) throw err;
+    console.table(res)
+    initialPrompt();
+  })
+  // console.log("to-do finish writing this function")
 }
 
 //view all roles
 function viewAllRoles() {
   connect.query("SELECT * FROM roles", function(err, res){
     if (err) throw err;
+    console.table(res)
     initialPrompt()
   });
-  console.log("to-do finish writing this function")
 }
 
 function addDepartment() {
   console.log("to-do finish writing this function")
 }
+
 function addEmployee() {
   console.log("to-do finish writing this function")
 }

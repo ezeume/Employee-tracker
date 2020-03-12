@@ -30,13 +30,13 @@ CREATE TABLE departments(
     PRIMARY KEY (id)
 );
 
-INSERT INTO employee (firstName, lastName, roleId, managerId)
+INSERT INTO employees (firstName, lastName, roleId, managerId)
 VALUES ("Nelson", "Ezeume", 10, 1), ("Bill", "Scott", 10, 11 ), ("Tom", "Hanks", 10, 11), ("Janet", "Green", 20, 2), ("Ricky", "Botin", 20, 22), ("Nancy", "Trash", 20, 22), ("Gary", "Owen", 30, 3), ("Murphy", "Lohan", 30, 33), ("Chuck", "Norris", 30, 33);
 
-INSERT INTO role (title, salary, departmentId)
+INSERT INTO roles (title, salary, departmentId)
 VALUES ("Marketer",95000, 101), ("HR", 70000, 202), ("Software Engineer", 110000, 303);
 
-INSERT INTO department (name)
+INSERT INTO departments (name)
 VALUES ("Marketing"), ("Human Resources"), ("IT");
 
 -- ### Alternative way to insert more than one row
